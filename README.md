@@ -1,4 +1,6 @@
 # Naive Summation Error Analysis  
+[![View Project](https://img.shields.io/badge/View_Project-517FF7)](https://github.com/yourusername/naive_summation_error_analysis)  
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)  
 
 This project demonstrates the **numerical errors** that occur in the naive summation algorithm (sequential accumulation).  
 By summing random values in the interval [-1, 1] with different list sizes, we compare the results with a high-precision reference and measure the **absolute** and **relative** errors.  
@@ -82,6 +84,22 @@ by S. G. Johnson (2019)【Naive Summation.pdf】.
 
 ---
 
-## License  
+## How to Cite  
 
-This project is licensed under the **MIT License** – feel free to use, modify, and share.  
+If you want to cite this repository in your work, please cite it as:  
+
+> Your Name. (2025). *Naive Summation Error Analysis*. GitHub. https://github.com/yourusername/naive_summation_error_analysis  
+
+**APA citation:**  
+Your Name. (2025). *Naive Summation Error Analysis*. GitHub. Retrieved September 3, 2025, from https://github.com/yourusername/naive_summation_error_analysis  
+
+**BibTeX:**  
+
+```bibtex
+@misc{naive_sum_error_2025,
+  author       = {Your Name},
+  title        = {Naive Summation Error Analysis},
+  year         = {2025},
+  howpublished = {\url{https://github.com/mikbalyilmaz/naive_summation_error_analysis}},
+  note         = {Accessed: 2025-09-03}
+}
