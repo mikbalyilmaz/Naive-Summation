@@ -88,16 +88,16 @@ by S. G. Johnson (2019)【Naive Summation.pdf】.
 
 If you want to cite this repository in your work, please cite it as:  
 
-> Your Name. (2025). *Naive Summation Error Analysis*. GitHub. https://github.com/yourusername/naive_summation_error_analysis  
+> Yılmaz, M.İ. (2025). *Naive Summation Error Analysis*. GitHub. https://github.com/mikbalyilmaz/naive_summation_error_analysis  
 
 **APA citation:**  
-Your Name. (2025). *Naive Summation Error Analysis*. GitHub. Retrieved September 3, 2025, from https://github.com/yourusername/naive_summation_error_analysis  
+Yılmaz, M.İ. (2025). *Naive Summation Error Analysis*. GitHub. Retrieved September 3, 2025, from https://github.com/yourusername/naive_summation_error_analysis  
 
 **BibTeX:**  
 
 ```bibtex
 @misc{naive_sum_error_2025,
-  author       = {Your Name},
+  author       = {Muhammed İkbal Yılmaz},
   title        = {Naive Summation Error Analysis},
   year         = {2025},
   howpublished = {\url{https://github.com/mikbalyilmaz/naive_summation_error_analysis}},
