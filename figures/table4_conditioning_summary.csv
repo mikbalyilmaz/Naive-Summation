@@ -1,0 +1,2 @@
+n,trials,kappa_median,kappa_max,slope_log_rel_error_on_log_kappa,naive_rel_error_mean,naive_rel_error_median,share_of_mean_from_top_1pct,kahan_rel_error_max_over_eps,naive_bound_violations
+10000,2000,125.05254005816207,181407.223476192,0.6444589727051933,7.611510457896048e-15,2.7009208310358548e-15,0.36925193426081476,0.9986209527237185,0

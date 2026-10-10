@@ -1,0 +1,2 @@
+machine,system,python,numpy,longdouble_bits,longdouble_eps,longdouble_is_float64,v1_reference_error_over_naive_error
+arm64,Darwin,3.13.6,2.4.1,64,2.220446049250313e-16,True,0.005363250441785606

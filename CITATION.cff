@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "Accuracy of naive summation: error growth, conditioning and better algorithms"
+version: 2.0.0
+authors:
+  - family-names: "Yılmaz"
+    given-names: "Muhammed İkbal"
+    email: "myucanlar@gmail.com"
+    affiliation: "Department of Econometrics, Ankara Hacı Bayram Veli University"
+repository-code: "https://github.com/mikbalyilmaz/Naive-Summation"
+license: MIT
+keywords:
+  - floating-point arithmetic
+  - rounding error
+  - summation
+  - Kahan summation
+  - condition number
