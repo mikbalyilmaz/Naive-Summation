@@ -1,5 +1,7 @@
 # Accuracy of Naive Summation: Error Growth, Conditioning and Better Algorithms
 
+[![tests](https://github.com/mikbalyilmaz/Naive-Summation/actions/workflows/tests.yml/badge.svg)](https://github.com/mikbalyilmaz/Naive-Summation/actions/workflows/tests.yml)
+
 Version 2 of a small study of the rounding error of naive (recursive) summation,
 
 $$s_0 = 0, \qquad s_k = s_{k-1} + x_k, \qquad \hat S = s_n,$$
