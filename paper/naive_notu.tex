@@ -1,60 +1,59 @@
-\documentclass[a4paper,10pt]{article}
+\documentclass[11pt,a4paper]{article}
 
-% Encoding and typeface: XeLaTeX with Latin Modern Roman (fontspec default), Turkish via polyglossia
+% Typeface: XeLaTeX with Latin Modern Roman (fontspec default)
 \usepackage{fontspec}
 \usepackage{polyglossia}
 \setdefaultlanguage{turkish}
 
-% Layout (tight margins)
-\usepackage[a4paper,top=1.2cm,bottom=1.3cm,left=1.3cm,right=1.3cm]{geometry}
+% Page: the measures of the note template (A4, 11 pt, 4.5 cm side margins, header and page count)
+\usepackage[a4paper,left=4.5cm,right=4.5cm,top=4.5cm,bottom=4.1cm,headheight=14pt,headsep=0.55cm,
+  footskip=0.55cm]{geometry}
+\linespread{0.946}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\textbf{PROJE NOTU} $|$ Naive-Summation}
+\fancyhead[R]{\small\textbf{Derlenme tarihi:} \today}
+\fancyfoot[C]{\small\thepage\,/\,\pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.4pt}
 
-% Typography
 \usepackage{microtype}
-\usepackage{setspace}
-\setstretch{0.92}
-
-% Paragraph settings
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{3pt}
-
-% Section styling
-\usepackage{titlesec}
-\titleformat{\section}{\bfseries\normalsize}{\thesection.}{0.4em}{}
-\titlespacing*{\section}{0pt}{6pt}{3pt}
-
-% Better lists
-\usepackage{enumitem}
-\setlist{noitemsep, topsep=2pt}
-
-% Mathematics, tables, figures
-\usepackage{amsmath}
-\usepackage{booktabs}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs,array,tabularx}
 \usepackage{graphicx}
-\usepackage[font=small,labelfont=bf,labelsep=period,skip=3pt]{caption}
+\usepackage{enumitem}
+\setlist{noitemsep, topsep=3pt, leftmargin=*}
+\usepackage{xcolor}
+\definecolor{secblue}{HTML}{1F3A5F}
+\definecolor{boxback}{HTML}{EEF2F6}
+\definecolor{mark}{HTML}{9B2226}
+\definecolor{hl}{HTML}{FFF36B}
+\usepackage{titlesec}
+\titleformat{\section}{\color{secblue}\bfseries\normalsize}{\thesection.}{0.4em}{}
+\titlespacing*{\section}{0pt}{10pt}{4pt}
+\usepackage[font=small,labelfont=bf,labelsep=period,skip=4pt]{caption}
+\usepackage[bottom]{footmisc}
 \captionsetup[figure]{name=Şekil}
 \captionsetup[table]{name=Tablo}
-\setlength{\textfloatsep}{8pt}
-\setlength{\floatsep}{6pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\setlength{\textfloatsep}{10pt}
+\emergencystretch=3em
 
 \input{numbers_tr.tex}
 
 \begin{document}
 
-% Header (top-right)
-\begin{flushright}
-\small \textbf{Derlenme tarihi:} \today
-\end{flushright}
 
-\vspace{-6pt}
-\hrule
-\vspace{24pt}
+\vspace*{14pt}
+\begin{tabular}{@{}p{2.35cm}@{}p{\dimexpr\textwidth-2.35cm}@{}}
+\textbf{BAŞLIK:} & \textbf{\large Naive toplamanın doğruluğu: hatanın büyümesi, koşul sayısı ve daha iyi yöntemler}\\[3pt]
+\textbf{KONU:} & \texttt{Naive-Summation} deposunun 2.\ sürümündeki analizlerin amacı, yöntemi ve sonuçları\\[3pt]
+\textbf{YAZAR:} & Muhammed İkbal Yılmaz (myucanlar@gmail.com)
+\end{tabular}
 
-\textbf{BAŞLIK:} Naive toplamanın doğruluğu: hatanın büyümesi, koşul sayısı ve daha iyi yöntemler
-
-\textbf{KONU:} \texttt{Naive-Summation} deposunun 2.\ sürümündeki analizlerin amacı, yöntemi ve sonuçları
-
-\textbf{HAZIRLAYAN:} Muhammed İkbal Yılmaz (myucanlar@gmail.com)
-
+\vspace{8pt}
 \vspace{12pt}
 
 \section{Amaç ve kapsam}
@@ -103,7 +102,7 @@ gösterir; bu birimde naive toplamanın sınırı $n-1$ doğrusudur.
 görünür. Bir eğri ile kesikli çizgi arasındaki uzaklık, sınırın ne kadar karamsar olduğunu gösterir.
 
 \begin{figure}[h]
-\centering\includegraphics[width=0.86\linewidth]{../figures/tr/fig1_error_growth.pdf}
+\centering\includegraphics[width=\textwidth]{../figures/tr/fig1_error_growth.pdf}
 \caption{Üç yöntemin 30 dizi üzerinden KOH hatası, $\varepsilon\sum|x_i|$ biriminde. Kesikli çizgi: naive toplamanın en kötü
 durum sınırı.}\label{fig:buyume}
 \end{figure}
@@ -132,7 +131,7 @@ toplamının kesin göreli hatası.
 anlamına gelir.
 
 \begin{figure}[h]
-\centering\includegraphics[width=0.86\linewidth]{../figures/tr/fig2_conditioning.pdf}
+\centering\includegraphics[width=\textwidth]{../figures/tr/fig2_conditioning.pdf}
 \caption{$\mathrm{U}(-1,1)$'den $10^4$ elemanlı \CondTrials{} dizi için göreli hata ve koşul sayısı. Kesikli çizgi: naive
 toplama sınırı. Noktalı çizgi: $\varepsilon$.}\label{fig:kosul}
 \end{figure}
@@ -188,15 +187,16 @@ ortadan kaldırır.
 
 \section*{Kaynaklar}
 {\small
-Higham, N. J. (1993). The accuracy of floating point summation. \textit{SIAM J.\ Scientific Computing}, 14(4), 783--799.\\
-Higham, N. J. (2002). \textit{Accuracy and Stability of Numerical Algorithms}, 2.\ baskı. SIAM.\\
-Johnson, S. G. (2019). Notes on the accuracy of naive summation; Backwards stability of recursive summation.
-MIT 18.335J, \textit{Introduction to Numerical Methods}, 3.\ ders.\\
-Kahan, W. (1965). Further remarks on reducing truncation errors. \textit{Communications of the ACM}, 8(1), 40.\\
-NumPy belgeleri: \texttt{numpy.sum}, \texttt{numpy.cumsum}, \texttt{numpy.finfo}. Python belgeleri: \texttt{math.fsum}.
+\setlength{\parskip}{2pt}
+\hangindent=1.27cm\hangafter=1 Higham, N. J. (1993). The accuracy of floating point summation. \textit{SIAM Journal on Scientific Computing}, 14(4), 783--799.\par
+\hangindent=1.27cm\hangafter=1 Higham, N. J. (2002). \textit{Accuracy and Stability of Numerical Algorithms} (2.\ baskı). SIAM.\par
+\hangindent=1.27cm\hangafter=1 Johnson, S. G. (2019). Notes on the accuracy of naive summation; Backwards stability of recursive summation.
+MIT 18.335J, \textit{Introduction to Numerical Methods}, 3.\ ders.\par
+\hangindent=1.27cm\hangafter=1 Kahan, W. (1965). Further remarks on reducing truncation errors. \textit{Communications of the ACM}, 8(1), 40.\par
+\hangindent=1.27cm\hangafter=1 NumPy belgeleri: \texttt{numpy.sum}, \texttt{numpy.cumsum}, \texttt{numpy.finfo}. Python belgeleri: \texttt{math.fsum}.\par
 
 \smallskip
-Kodun yazımında ve bu notun hazırlanmasında bir yapay zekâ kodlama asistanından yararlanılmıştır. Tüm sayılar
+Tüm sayılar
 \texttt{figures/*.csv} dosyalarından \texttt{make\_paper.py} ile üretilir.
 }
 

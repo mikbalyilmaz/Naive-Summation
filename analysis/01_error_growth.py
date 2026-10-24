@@ -13,7 +13,7 @@ import numpy as np
 
 from common import DISTRIBUTIONS, SEED, save_table
 from naivesum import EPS, exact_error, kahan_prefix, l1_norm, naive_prefix, pairwise_sum
-from naivesum.style import BLUE, MUTED, ORANGE, AQUA, L, save_figure, use_style
+from naivesum.style import BLUE, INK, MUTED, L, fit_log_axis, save_figure, use_style
 
 N_MAX = 10 ** 6
 TRIALS = 30
@@ -62,26 +62,26 @@ for s in slopes:
     print(s)
 
 use_style()
-COLORS = {"naive": BLUE, "pairwise": AQUA, "kahan": ORANGE}
+COLORS = {"naive": BLUE, "pairwise": MUTED, "kahan": INK}
 
 
 def draw():
     import matplotlib.pyplot as plt
-    fig, axes = plt.subplots(1, 2, figsize=(7, 3.3), sharey=True, constrained_layout=True)
+    fig, axes = plt.subplots(1, 2, figsize=(4.75, 2.6), constrained_layout=True)
     names = {"naive": L("Naive", "Naive"), "pairwise": L("Pairwise", "İkili"), "kahan": "Kahan"}
-    for ax, dist in zip(axes, DISTRIBUTIONS):
-        n = GRID.astype(float)
-        ax.plot(n, n - 1, color=MUTED, ls="--", lw=1, label=L("Worst-case bound, $n-1$", "En kötü durum sınırı, $n-1$"))
+    n = GRID.astype(float)
+    for k, (ax, dist) in enumerate(zip(axes, DISTRIBUTIONS)):
+        ax.plot(n, n - 1, color=INK, ls=(0, (3, 2)), lw=0.9,
+                label=L("Worst-case bound, $n-1$", "En kötü durum sınırı, $n-1$"))
         for m in METHODS:
             y = [r["rms_error_over_eps_l1"] for r in rows if r["distribution"] == dist and r["method"] == m]
-            ax.plot(n, y, color=COLORS[m], lw=1.6, marker="o", ms=2.5, label=names[m])
-        ax.set_xscale("log")
-        ax.set_yscale("log")
-        ax.set_ylim(1e-4, 2e6)
+            ax.plot(n, y, color=COLORS[m], lw=1.3, marker="o", ms=2, label=names[m])
+        fit_log_axis(ax, "x", n)
+        fit_log_axis(ax, "y", [1e-4, 1e6], every=2)
         ax.set_xlabel("n")
-        ax.set_title(dist.replace("-", "−"))
+        ax.set_title(f"({'ab'[k]}) " + dist.replace("-", "−"))
     axes[0].set_ylabel(L("RMS error / ($\\varepsilon\\,\\sum|x_i|$)", "KOH hata / ($\\varepsilon\\,\\sum|x_i|$)"))
-    axes[0].legend(loc="upper left")
+    axes[0].legend(loc="lower right", fontsize=6.3, handlelength=2.2)
     return fig
 
 

@@ -1,58 +1,61 @@
-\documentclass[a4paper,10pt]{article}
+\documentclass[11pt,a4paper]{article}
 
-% Encoding and typeface: XeLaTeX with Latin Modern Roman (fontspec default), English via polyglossia
+% Typeface: XeLaTeX with Latin Modern Roman (fontspec default)
 \usepackage{fontspec}
 \usepackage{polyglossia}
 \setdefaultlanguage[variant=british]{english}
 
-% Layout (tight margins)
-\usepackage[a4paper,top=1.2cm,bottom=1.3cm,left=1.3cm,right=1.3cm]{geometry}
+% Page: the measures of the note template (A4, 11 pt, 4.5 cm side margins, header and page count)
+\usepackage[a4paper,left=4.5cm,right=4.5cm,top=4.5cm,bottom=4.1cm,headheight=14pt,headsep=0.55cm,
+  footskip=0.55cm]{geometry}
+\linespread{0.946}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\textbf{PROJECT NOTE} $|$ Naive-Summation}
+\fancyhead[R]{\small\textbf{Compiled on:} \notedate}
+\fancyfoot[C]{\small\thepage\,/\,\pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.4pt}
 
-% Typography
 \usepackage{microtype}
-\usepackage{setspace}
-\setstretch{0.92}
-
-% Paragraph settings
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{3pt}
-
-% Section styling
-\usepackage{titlesec}
-\titleformat{\section}{\bfseries\normalsize}{\thesection.}{0.4em}{}
-\titlespacing*{\section}{0pt}{6pt}{3pt}
-
-% Better lists
-\usepackage{enumitem}
-\setlist{noitemsep, topsep=2pt}
-
-% Mathematics, tables, figures
-\usepackage{amsmath}
-\usepackage{booktabs}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs,array,tabularx}
 \usepackage{graphicx}
-\usepackage[font=small,labelfont=bf,labelsep=period,skip=3pt]{caption}
-\setlength{\textfloatsep}{8pt}
-\setlength{\floatsep}{6pt}
+\usepackage{enumitem}
+\setlist{noitemsep, topsep=3pt, leftmargin=*}
+\usepackage{xcolor}
+\definecolor{secblue}{HTML}{1F3A5F}
+\definecolor{boxback}{HTML}{EEF2F6}
+\definecolor{mark}{HTML}{9B2226}
+\definecolor{hl}{HTML}{FFF36B}
+\usepackage{titlesec}
+\titleformat{\section}{\color{secblue}\bfseries\normalsize}{\thesection.}{0.4em}{}
+\titlespacing*{\section}{0pt}{10pt}{4pt}
+\usepackage[font=small,labelfont=bf,labelsep=period,skip=4pt]{caption}
+\usepackage[bottom]{footmisc}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\setlength{\textfloatsep}{10pt}
+\emergencystretch=3em
+
+\newcommand{\notedate}{\number\day\space\ifcase\month\or January\or February\or March\or April\or May\or June\or
+  July\or August\or September\or October\or November\or December\fi\space\number\year}
 
 \input{numbers_en.tex}
 
 \begin{document}
 
-% Header (top-right)
-\begin{flushright}
-\small \textbf{Compiled on:} \today
-\end{flushright}
 
-\vspace{-6pt}
-\hrule
-\vspace{24pt}
+\vspace*{14pt}
+\begin{tabular}{@{}p{2.35cm}@{}p{\dimexpr\textwidth-2.35cm}@{}}
+\textbf{TITLE:} & \textbf{\large Accuracy of naive summation: error growth, conditioning and better algorithms}\\[3pt]
+\textbf{SUBJECT:} & Aim, method and results of the analyses in version 2 of the \texttt{Naive-Summation} repository\\[3pt]
+\textbf{AUTHOR:} & Muhammed İkbal Yılmaz (myucanlar@gmail.com)
+\end{tabular}
 
-\textbf{TITLE:} Accuracy of naive summation: error growth, conditioning and better algorithms
-
-\textbf{SUBJECT:} Aim, method and results of the analyses in version 2 of the \texttt{Naive-Summation} repository
-
-\textbf{PREPARED BY:} Muhammed İkbal Yılmaz (myucanlar@gmail.com)
-
+\vspace{8pt}
 \vspace{12pt}
 
 \section{Aim and scope}
@@ -101,7 +104,7 @@ units the naive bound is the line $n-1$.
 $k$. The distance between a curve and the dashed line shows how pessimistic the bound is.
 
 \begin{figure}[h]
-\centering\includegraphics[width=0.86\linewidth]{../figures/fig1_error_growth.pdf}
+\centering\includegraphics[width=\textwidth]{../figures/fig1_error_growth.pdf}
 \caption{RMS error of three algorithms over 30 arrays, in units of $\varepsilon\sum|x_i|$. Dashed: worst-case bound for
 naive summation.}\label{fig:growth}
 \end{figure}
@@ -130,7 +133,7 @@ error of naive and Kahan summation.
 the condition number.
 
 \begin{figure}[h]
-\centering\includegraphics[width=0.86\linewidth]{../figures/fig2_conditioning.pdf}
+\centering\includegraphics[width=\textwidth]{../figures/fig2_conditioning.pdf}
 \caption{Relative error against the condition number for \CondTrials{} arrays of $10^4$ values from $\mathrm{U}(-1,1)$.
 Dashed: bound for naive summation. Dotted: $\varepsilon$.}\label{fig:cond}
 \end{figure}
@@ -186,15 +189,16 @@ reference, as done here, avoids this platform dependence.
 
 \section*{References}
 {\small
-Higham, N. J. (1993). The accuracy of floating point summation. \textit{SIAM J.\ Scientific Computing}, 14(4), 783--799.\\
-Higham, N. J. (2002). \textit{Accuracy and Stability of Numerical Algorithms}, 2nd ed. SIAM.\\
-Johnson, S. G. (2019). Notes on the accuracy of naive summation; and Backwards stability of recursive summation.
-MIT course 18.335J, \textit{Introduction to Numerical Methods}, Lecture 3.\\
-Kahan, W. (1965). Further remarks on reducing truncation errors. \textit{Communications of the ACM}, 8(1), 40.\\
-NumPy documentation: \texttt{numpy.sum}, \texttt{numpy.cumsum}, \texttt{numpy.finfo}. Python documentation: \texttt{math.fsum}.
+\setlength{\parskip}{2pt}
+\hangindent=1.27cm\hangafter=1 Higham, N. J. (1993). The accuracy of floating point summation. \textit{SIAM Journal on Scientific Computing}, 14(4), 783--799.\par
+\hangindent=1.27cm\hangafter=1 Higham, N. J. (2002). \textit{Accuracy and Stability of Numerical Algorithms} (2nd ed.). SIAM.\par
+\hangindent=1.27cm\hangafter=1 Johnson, S. G. (2019). Notes on the accuracy of naive summation; and Backwards stability of recursive summation.
+MIT course 18.335J, \textit{Introduction to Numerical Methods}, Lecture 3.\par
+\hangindent=1.27cm\hangafter=1 Kahan, W. (1965). Further remarks on reducing truncation errors. \textit{Communications of the ACM}, 8(1), 40.\par
+\hangindent=1.27cm\hangafter=1 NumPy documentation: \texttt{numpy.sum}, \texttt{numpy.cumsum}, \texttt{numpy.finfo}. Python documentation: \texttt{math.fsum}.\par
 
 \smallskip
-An AI coding assistant was used in writing the code and in preparing this note. All numbers are generated from
+All numbers are generated from
 \texttt{figures/*.csv} by \texttt{make\_paper.py}.
 }
 

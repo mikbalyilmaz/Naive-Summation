@@ -15,7 +15,7 @@ import numpy as np
 
 from common import SEED, save_table
 from naivesum import EPS, condition_number, exact_error, exact_sum, kahan_sum, naive_prefix
-from naivesum.style import BLUE, MUTED, ORANGE, L, num, save_figure, use_style
+from naivesum.style import BLUE, INK, MUTED, RED, L, fit_log_axis, may_touch, save_figure, use_style
 
 N = 10 ** 4
 TRIALS = 2000
@@ -53,24 +53,27 @@ use_style()
 
 def draw():
     import matplotlib.pyplot as plt
-    fig, ax = plt.subplots(figsize=(7, 3.4), constrained_layout=True)
+    fig, ax = plt.subplots(figsize=(4.75, 2.7), constrained_layout=True)
     k = np.logspace(math.log10(kappa.min()) - 0.1, math.log10(kappa.max()) + 0.1, 50)
-    ax.plot(k, (N - 1) * EPS * k, color=MUTED, ls="--", lw=1,
+    ax.plot(k, (N - 1) * EPS * k, color=INK, ls=(0, (3, 2)), lw=0.9,
             label=L("Bound for naive summation, $(n-1)\\,\\varepsilon\\,\\kappa$",
                     "Naive toplama sınırı, $(n-1)\\,\\varepsilon\\,\\kappa$"))
-    ax.scatter(kappa[positive], rel_naive[positive], s=5, color=BLUE, alpha=0.6, lw=0, label="Naive")
+    ax.scatter(kappa[positive], rel_naive[positive], s=3, color=BLUE, lw=0, label="Naive")
     keep = rel_kahan > 0
-    ax.scatter(kappa[keep], rel_kahan[keep], s=5, color=ORANGE, alpha=0.6, lw=0, label="Kahan")
-    ax.axhline(EPS, color=MUTED, lw=0.8, ls=":")
-    ax.text(k[-1], EPS * 1.5, "$\\varepsilon = 2^{-53}$", color=MUTED, fontsize=8.5, ha="right")
-    ax.set_xscale("log")
-    ax.set_yscale("log")
+    ax.scatter(kappa[keep], rel_kahan[keep], s=3, color=MUTED, lw=0, label="Kahan")
+    may_touch(ax.axhline(EPS, color=RED, lw=0.8, ls=(0, (1, 1.4))))
+    ax.annotate("$\\varepsilon = 2^{-53}$", xy=(1, EPS), xycoords=("axes fraction", "data"), xytext=(-2, 2),
+                textcoords="offset points", color=RED, fontsize=7, ha="right", va="bottom")
+    fit_log_axis(ax, "x", k)
+    # 1e-4 leaves room for the legend
+    values = np.concatenate([rel_naive[positive], rel_kahan[keep], (N - 1) * EPS * k, [1e-4]])
+    fit_log_axis(ax, "y", values, every=2)
     ax.set_xlabel(L("Condition number $\\kappa = \\sum|x_i|\\,/\\,|\\sum x_i|$",
                     "Koşul sayısı $\\kappa = \\sum|x_i|\\,/\\,|\\sum x_i|$"))
-    ax.set_ylabel(L("Relative error $|E|\\,/\\,|S|$", "Göreli hata $|E|\\,/\\,|S|$"))
-    ax.set_title(L(f"{TRIALS:,} arrays of $n = 10^4$ values from U(−1,1)",
-                   f"U(−1,1) dağılımından {TRIALS:,} dizi".replace(",", ".") + ", $n = 10^4$"))
-    ax.legend(loc="upper left", markerscale=2.5)
+    ax.set_title(L(f"Relative error $|E|\\,/\\,|S|$, {TRIALS:,} arrays of $n = 10^4$ values from U(−1,1)",
+                   "Göreli hata $|E|\\,/\\,|S|$, "
+                   + f"U(−1,1) dağılımından {TRIALS:,} dizi".replace(",", ".") + ", $n = 10^4$"))
+    ax.legend(loc="upper left", markerscale=2.5, fontsize=6.3)
     return fig
 
 
