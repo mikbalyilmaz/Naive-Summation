@@ -8,7 +8,7 @@ $$s_0 = 0, \qquad s_k = s_{k-1} + x_k, \qquad \hat S = s_n,$$
 
 in double-precision arithmetic. Every error is computed exactly, compared with its theoretical bound, and explained
 through the condition number of the sum. Pairwise summation, Kahan's compensated summation, `np.sum` and `math.fsum`
-are compared for accuracy and speed. A short project note (English and Turkish) explains why each analysis was done
+are compared for accuracy and speed. A short project note explains why each analysis was done
 and what it shows.
 
 ## Contents
@@ -16,14 +16,14 @@ and what it shows.
 | Path | What it is |
 |---|---|
 | `naivesum/summation.py` | Naive, pairwise and Kahan summation; exact errors with `math.fsum`; condition number; Higham's $\gamma_k$ |
-| `naivesum/style.py` | Shared figure style (Latin Modern Roman, colours, English and Turkish versions of each figure) |
+| `naivesum/style.py` | Shared figure style (Latin Modern Roman, colours) |
 | `tests/run_tests.py` | Unit tests against exact rational arithmetic and published error bounds |
 | `analysis/01_error_growth.py` | How the error grows with $n$, against the worst-case bound (Figure 1) |
 | `analysis/02_conditioning.py` | Relative error against the condition number (Figure 2) |
 | `analysis/03_algorithms.py` | Accuracy and running time of six methods; accuracy of the version 1 reference |
 | `analysis/run_all.py` | Runs the three analyses in order |
-| `figures/` | Figures as PNG (300 dpi) and PDF, every reported table as CSV; `figures/tr/` holds the Turkish figures |
-| `paper/naive_note.pdf`, `paper/naive_notu.pdf` | Project note in English and in Turkish; `make_paper.py` writes all their numbers from `figures/*.csv` |
+| `figures/` | Figures as PNG (300 dpi) and PDF, every reported table as CSV |
+| `paper/naive_note.pdf` | Project note in English; `make_paper.py` writes all their numbers from `figures/*.csv` |
 | `legacy/naive_summation_v1.ipynb` | Version 1, unchanged |
 | `fonts/` | Latin Modern Roman (GUST Font License) |
 
@@ -37,7 +37,6 @@ python run_all.py                    # about one minute
 cd ../paper
 python make_paper.py
 xelatex naive_note.tex && xelatex naive_note.tex     # English; needs XeLaTeX
-xelatex naive_notu.tex && xelatex naive_notu.tex     # Turkish
 ```
 
 Seeds are fixed, so every number except the running times is the same on every machine.

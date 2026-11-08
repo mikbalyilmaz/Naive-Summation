@@ -15,7 +15,7 @@ import numpy as np
 
 from common import SEED, save_table
 from naivesum import EPS, condition_number, exact_error, exact_sum, kahan_sum, naive_prefix
-from naivesum.style import BLUE, INK, MUTED, RED, L, fit_log_axis, may_touch, save_figure, use_style
+from naivesum.style import BLUE, INK, MUTED, RED, fit_log_axis, may_touch, save_figure, use_style
 
 N = 10 ** 4
 TRIALS = 2000
@@ -56,8 +56,7 @@ def draw():
     fig, ax = plt.subplots(figsize=(4.75, 2.7), constrained_layout=True)
     k = np.logspace(math.log10(kappa.min()) - 0.1, math.log10(kappa.max()) + 0.1, 50)
     ax.plot(k, (N - 1) * EPS * k, color=INK, ls=(0, (3, 2)), lw=0.9,
-            label=L("Bound for naive summation, $(n-1)\\,\\varepsilon\\,\\kappa$",
-                    "Naive toplama sınırı, $(n-1)\\,\\varepsilon\\,\\kappa$"))
+            label="Bound for naive summation, $(n-1)\\,\\varepsilon\\,\\kappa$")
     ax.scatter(kappa[positive], rel_naive[positive], s=3, color=BLUE, lw=0, label="Naive")
     keep = rel_kahan > 0
     ax.scatter(kappa[keep], rel_kahan[keep], s=3, color=MUTED, lw=0, label="Kahan")
@@ -68,15 +67,11 @@ def draw():
     # 1e-4 leaves room for the legend
     values = np.concatenate([rel_naive[positive], rel_kahan[keep], (N - 1) * EPS * k, [1e-4]])
     fit_log_axis(ax, "y", values, every=2)
-    ax.set_xlabel(L("Condition number $\\kappa = \\sum|x_i|\\,/\\,|\\sum x_i|$",
-                    "Koşul sayısı $\\kappa = \\sum|x_i|\\,/\\,|\\sum x_i|$"))
-    ax.set_title(L(f"Relative error $|E|\\,/\\,|S|$, {TRIALS:,} arrays of $n = 10^4$ values from U(−1,1)",
-                   "Göreli hata $|E|\\,/\\,|S|$, "
-                   + f"U(−1,1) dağılımından {TRIALS:,} dizi".replace(",", ".") + ", $n = 10^4$"))
+    ax.set_xlabel("Condition number $\\kappa = \\sum|x_i|\\,/\\,|\\sum x_i|$")
+    ax.set_title(f"Relative error $|E|\\,/\\,|S|$, {TRIALS:,} arrays of $n = 10^4$ values from U(−1,1)")
     ax.legend(loc="upper left", markerscale=2.5, fontsize=6.3)
     return fig
 
 
 save_figure("fig2_conditioning", draw,
-            heading=lambda: L("Figure 2. Relative error against the condition number of the sum",
-                              "Şekil 2. Göreli hata ve toplamın koşul sayısı"))
+            heading=lambda: "Figure 2. Relative error against the condition number of the sum")

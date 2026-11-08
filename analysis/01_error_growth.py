@@ -13,7 +13,7 @@ import numpy as np
 
 from common import DISTRIBUTIONS, SEED, save_table
 from naivesum import EPS, exact_error, kahan_prefix, l1_norm, naive_prefix, pairwise_sum
-from naivesum.style import BLUE, INK, MUTED, L, fit_log_axis, save_figure, use_style
+from naivesum.style import BLUE, INK, MUTED, fit_log_axis, save_figure, use_style
 
 N_MAX = 10 ** 6
 TRIALS = 30
@@ -68,11 +68,11 @@ COLORS = {"naive": BLUE, "pairwise": MUTED, "kahan": INK}
 def draw():
     import matplotlib.pyplot as plt
     fig, axes = plt.subplots(1, 2, figsize=(4.75, 2.6), constrained_layout=True)
-    names = {"naive": L("Naive", "Naive"), "pairwise": L("Pairwise", "İkili"), "kahan": "Kahan"}
+    names = {"naive": "Naive", "pairwise": "Pairwise", "kahan": "Kahan"}
     n = GRID.astype(float)
     for k, (ax, dist) in enumerate(zip(axes, DISTRIBUTIONS)):
         ax.plot(n, n - 1, color=INK, ls=(0, (3, 2)), lw=0.9,
-                label=L("Worst-case bound, $n-1$", "En kötü durum sınırı, $n-1$"))
+                label="Worst-case bound, $n-1$")
         for m in METHODS:
             y = [r["rms_error_over_eps_l1"] for r in rows if r["distribution"] == dist and r["method"] == m]
             ax.plot(n, y, color=COLORS[m], lw=1.3, marker="o", ms=2, label=names[m])
@@ -80,11 +80,12 @@ def draw():
         fit_log_axis(ax, "y", [1e-4, 1e6], every=2)
         ax.set_xlabel("n")
         ax.set_title(f"({'ab'[k]}) " + dist.replace("-", "−"))
-    axes[0].set_ylabel(L("RMS error / ($\\varepsilon\\,\\sum|x_i|$)", "KOH hata / ($\\varepsilon\\,\\sum|x_i|$)"))
+    axes[0].set_ylabel("RMS error / ($\\varepsilon\\,\\sum|x_i|$)")
     axes[0].legend(loc="lower right", fontsize=6.3, handlelength=2.2)
+    for a in fig.axes:   # the vertical axis stands 4 pt away from the data, which start on the first x value
+        a.spines["left"].set_position(("outward", 4))
     return fig
 
 
 save_figure("fig1_error_growth", draw,
-            heading=lambda: L("Figure 1. Error of three summation algorithms against the worst-case bound",
-                              "Şekil 1. Üç toplama yönteminin hatası ve en kötü durum sınırı"))
+            heading=lambda: "Figure 1. Error of three summation algorithms against the worst-case bound")

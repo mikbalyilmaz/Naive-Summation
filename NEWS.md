@@ -1,5 +1,23 @@
 # Changes
 
+## Version 2.2.0
+
+No result changed. The repository is now in English only.
+
+- The Turkish project note (`naive_notu`), the Turkish figures (`figures/tr/`) and the Turkish number and table files
+  (`*_tr.tex`) are removed.
+- The code no longer draws or writes a second language: the label function that chose between English and Turkish
+  text, the decimal comma and the second pass over each figure are removed.
+
+
+## Version 2.1.1
+
+No result changed: every table and every number in the note is the same as in version 2.1.0.
+
+| # | Version 2.1.0 | Version 2.1.1 |
+|---|---|---|
+| 1 | In Figure 1, lines and markers that start at the first x tick sat on the vertical axis | The vertical axis is moved 4 pt away from the data (axis limits stay at labelled ticks) |
+
 ## Version 2.1.0
 
 No result changed: every table and every number in the notes is the same as in version 2.0.0.

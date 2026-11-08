@@ -1,9 +1,9 @@
 """Writes every number and table of the project notes from ../figures/*.csv, so that the text cannot drift
 away from the analysis. Run from inside paper/:  python make_paper.py
 
-Output, once in English (suffix _en, for naive_note.tex) and once in Turkish (suffix _tr, for
-naive_notu.tex): numbers_xx.tex (one macro per quoted number) and tab_algorithms_xx.tex (table body ending
-with its bottom rule, because a rule cannot follow \\input directly inside a tabular).
+Output (suffix _en, for naive_note.tex): numbers_en.tex (one macro per quoted number) and
+tab_algorithms_en.tex (table body ending with its bottom rule, because a rule cannot follow
+\\input directly inside a tabular).
 """
 
 import csv
@@ -43,27 +43,6 @@ TEXT = {
                      "${eps}$ against $2{dec}2\\times 10^{{-16}}$), so the version 1 reference happens to be accurate "
                      "here; on platforms where \\texttt{longdouble} has the precision of \\texttt{float64} it reduces to "
                      "NumPy's pairwise sum"),
-    },
-    "tr": {
-        "big": ".", "dec": "{,}",
-        "methods": {
-            "naive_python_loop": "Naive, Python d\u00f6ng\u00fcs\u00fc (s\u00fcr\u00fcm 1)",
-            "naive_cumsum": "Naive, \\texttt{np.cumsum}",
-            "pairwise": "\u0130kili",
-            "numpy_sum": "\\texttt{np.sum} (NumPy, k\u0131smi ikili)",
-            "kahan": "Kahan, Python d\u00f6ng\u00fcs\u00fc",
-            "fsum": "\\texttt{math.fsum} (do\u011fru yuvarlanm\u0131\u015f)",
-            "v1_reference": "\\texttt{np.sum}, \\texttt{longdouble} (s\u00fcr\u00fcm 1 referans\u0131)",
-        },
-        "ld_float64": ("Bu makinede \\texttt{longdouble}, \\texttt{float64} ile ayn\u0131 duyarl\u0131l\u0131ktad\u0131r; "
-                       "dolay\u0131s\u0131yla s\u00fcr\u00fcm 1'in referans\u0131 asl\u0131nda NumPy'\u0131n \u00e7ift "
-                       "duyarl\u0131kl\u0131 ikili toplam\u0131d\u0131r; hatas\u0131 naive toplama hatas\u0131n\u0131n "
-                       "\\%{ratio} kadar\u0131d\u0131r"),
-        "ld_wider": ("Bu makinede \\texttt{longdouble}, \\texttt{float64}'ten daha geni\u015ftir (1 civar\u0131nda "
-                     "say\u0131lar aras\u0131 aral\u0131k ${eps}$, \\texttt{float64}'te $2{dec}2\\times 10^{{-16}}$); bu "
-                     "y\u00fczden s\u00fcr\u00fcm 1'in referans\u0131 burada isabetlidir. \\texttt{longdouble}'\u0131n "
-                     "\\texttt{float64} duyarl\u0131l\u0131\u011f\u0131nda oldu\u011fu platformlarda ise NumPy'\u0131n "
-                     "ikili toplam\u0131na indirgenir"),
     },
 }
 
@@ -136,6 +115,6 @@ def build(lang):
     (OUT / f"tab_algorithms_{lang}.tex").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
-for lang in ("en", "tr"):
+for lang in ("en",):
     build(lang)
-print("Wrote numbers_*.tex and tab_algorithms_*.tex (en, tr).")
+print("Wrote numbers_*.tex and tab_algorithms_*.tex (en).")
