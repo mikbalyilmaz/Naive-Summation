@@ -23,7 +23,7 @@ and what it shows.
 | `analysis/03_algorithms.py` | Accuracy and running time of six methods; accuracy of the version 1 reference |
 | `analysis/run_all.py` | Runs the three analyses in order |
 | `figures/` | Figures as PNG (300 dpi) and PDF, every reported table as CSV |
-| `paper/naive_note.pdf` | Project note in English; `make_paper.py` writes all their numbers from `figures/*.csv` |
+| `paper/naive_note.pdf` | Project note in English; `make_paper.py` writes all its numbers from `figures/*.csv` |
 | `legacy/naive_summation_v1.ipynb` | Version 1, unchanged |
 | `fonts/` | Latin Modern Roman (GUST Font License) |
 
@@ -61,9 +61,15 @@ $|E| \le (n-1)\,\varepsilon \sum|x_i|$ to first order (Higham, 2002).
 - **The error is far below the bound.** In units of $\varepsilon\sum|x_i|$ the bound is $n - 1$. For positive terms,
   U(0,1), the RMS error grows like $\sqrt{n}$ (slope 0.50) and is 237 units at $n = 10^6$. For terms of both signs,
   U(−1,1), as in version 1, it hardly grows (slope 0.06) and stays below one unit.
+
+![Error against the bound](figures/fig1_error_growth.png)
+
 - **The relative error is governed by the condition number** $\kappa = \sum|x_i| / |\sum x_i|$. Over 2,000 sums of
   $10^4$ values it rises with $\kappa$, while Kahan's relative error never exceeds $\varepsilon$. The mean relative
   error is 2.8 times its median, because 1% of the sums account for 37% of the mean.
+
+![Relative error against the condition number](figures/fig2_conditioning.png)
+
 - **Naive summation is backward stable, not unstable.** Large relative errors come from ill-conditioned sums.
 - **Better methods are cheap.** For $n = 10^6$, `np.sum` is about 190 times more accurate than naive summation, and
   `math.fsum` returns the correctly rounded sum while running faster than the Python loop of version 1.

@@ -1,5 +1,13 @@
 # Changes
 
+## Version 2.2.1
+
+No result changed: every table and every number in the note is the same as in version 2.2.0.
+
+| # | Version 2.2.0 | Version 2.2.1 |
+|---|---|---|
+| 1 | The README listed the results without the figures | The README shows Figures 1 and 2 next to the results they belong to |
+
 ## Version 2.2.0
 
 No result changed. The repository is now in English only.
